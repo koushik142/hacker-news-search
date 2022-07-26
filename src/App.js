@@ -1,7 +1,7 @@
 import "./App.css";
 import Home from "./components/home";
 import PostDetail from "./components/PostDetail";
-import { Route, Switch } from "react-router";
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   return (
