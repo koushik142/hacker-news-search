@@ -6,6 +6,7 @@ import axios from "axios";
 function Home() {
   const [posts, setPosts] = useState([]);
   const [searchString, setSearchString] = useState("");
+  const [debounceTimeout, setDebounceTimeout] = useState(0);
 
   async function getPosts(query) {
     const response = await axios.get(
@@ -17,14 +18,22 @@ function Home() {
   function handleChangeSearchString(e) {
     const userInput = e.target.value;
     setSearchString(userInput);
-    getPosts(userInput)
-      .then((res) => {
-        console.log(res);
-        setPosts(res.hits);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+
+    //debouncing implementation
+    if (debounceTimeout !== 0) {
+      clearTimeout(debounceTimeout);
+    }
+    const newTimeout = setTimeout(() => {
+      getPosts(userInput)
+        .then((res) => {
+          console.log(res);
+          setPosts(res.hits);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }, 500);
+    setDebounceTimeout(newTimeout);
   }
 
   return (
@@ -32,16 +41,18 @@ function Home() {
       <header>
         <h1>Hacker News Search</h1>
       </header>
-      <div  id="search-bar">
+      <div id="search-bar">
         <input
           type="text"
-          placeholder="Search posts"
+          placeholder="Start typing ..."
           value={searchString}
           onChange={handleChangeSearchString}
         ></input>
       </div>
       <div id="posts">
-      {posts.map((post) => <CardPost title={post.title} key={post.objectID} url={post.url}/>)}
+        {posts.map((post) => (
+          <CardPost title={post.title} key={post.objectID} url={post.url} />
+        ))}
       </div>
     </>
   );
