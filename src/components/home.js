@@ -74,9 +74,16 @@ function Home() {
         </Box>
       ) : (
         <div id="posts">
-          {posts.map((post) => (
-            <CardPost title={post.title} key={post.objectID} url={post.url} />
-          ))}
+          {posts.length === 0 ? (
+            <h5>
+              No posts found for the provided keyword. Search with a different
+              keyword.
+            </h5>
+          ) : (
+            posts.map((post) => (
+              <CardPost title={post.title} key={post.objectID} url={post.url} />
+            ))
+          )}
         </div>
       )}
     </>
