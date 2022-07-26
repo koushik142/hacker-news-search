@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { CircularProgress, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import Header from "./Header";
+import SearchBar from "./SearchBar";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -45,18 +47,8 @@ function Home() {
 
   return (
     <>
-      <header>
-        <h1>Hacker News Search</h1>
-      </header>
-
-      <div id="search-bar">
-        <input
-          type="text"
-          placeholder="Start typing ..."
-          value={searchString}
-          onChange={handleChangeSearchString}
-        ></input>
-      </div>
+      <Header />
+      <SearchBar value={searchString} onChange={handleChangeSearchString} />
 
       {displayLoadingSpinner ? (
         <Box className="loading">
