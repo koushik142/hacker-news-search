@@ -1,6 +1,6 @@
 import "./home.css";
 import CardPost from "./cardPost";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { CircularProgress, Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -46,6 +46,23 @@ function Home() {
     }, 500);
     setDebounceTimeout(newTimeout);
   }
+
+  //On page load display posts returned from the empty string query GET request
+  useEffect(() => {
+    setDisplayLoadingSpinner(true);
+    getPosts("")
+        .then((res) => {
+          setDisplayLoadingSpinner(false);
+          setAxiosGetRequestFailed(false);
+          console.log(res);
+          setPosts(res.hits);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          setDisplayLoadingSpinner(false);
+          setAxiosGetRequestFailed(true);
+        });
+  }, []);
 
   if (axiosGetRequestFailed) {
     return (
