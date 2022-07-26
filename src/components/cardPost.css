@@ -1,0 +1,12 @@
+.card a{
+    text-decoration: none;
+    color: #f7f7f6;
+}
+
+.card{
+    text-align: left;
+    border: 0.2rem solid #56eb28;
+    margin: 1rem auto;
+    padding-left: 0.5rem;
+    width: 60%;
+}
