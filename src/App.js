@@ -1,10 +1,19 @@
-import './App.css';
+import "./App.css";
 import Home from "./components/home";
+import PostDetail from "./components/PostDetail";
+import { Route, Switch } from "react-router";
 
 function App() {
   return (
     <div className="App">
-      <Home />
+      <Switch>
+        <Route path="/post/:id">
+          <PostDetail />
+        </Route>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+      </Switch>
     </div>
   );
 }
