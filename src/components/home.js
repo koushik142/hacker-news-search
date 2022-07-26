@@ -34,15 +34,32 @@ function Home() {
       getPosts(userInput)
         .then((res) => {
           setDisplayLoadingSpinner(false);
+          setAxiosGetRequestFailed(false);
           console.log(res);
           setPosts(res.hits);
         })
         .catch((err) => {
           console.log(err.message);
           setDisplayLoadingSpinner(false);
+          setAxiosGetRequestFailed(true);
         });
     }, 500);
     setDebounceTimeout(newTimeout);
+  }
+
+  if (axiosGetRequestFailed) {
+    return (
+      <>
+        <Header />
+        <SearchBar value={searchString} onChange={handleChangeSearchString} />
+        <div id="axios-err-msg">
+          <h5>
+            Cannot fetch data at the moment. Try refreshing or open the app
+            after some time.
+          </h5>
+        </div>
+      </>
+    );
   }
 
   return (
