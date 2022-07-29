@@ -1,11 +1,12 @@
-import "./home.css";
-import CardPost from "./cardPost";
+import "./Home.css";
+import CardPost from "./CardPost";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { CircularProgress, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Header from "./Header";
 import SearchBar from "./SearchBar";
+import Footer from "./Footer";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -103,6 +104,8 @@ function Home() {
           )}
         </div>
       )}
+
+      <Footer />
     </>
   );
 }
