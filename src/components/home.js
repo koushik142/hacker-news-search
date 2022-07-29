@@ -98,7 +98,7 @@ function Home() {
             </h5>
           ) : (
             posts.map((post) => (
-              <CardPost title={post.title} key={post.objectID} url={post.url} />
+              <CardPost title={post.title} key={post.objectID} url={post.url} objectID={post.objectID}/>
             ))
           )}
         </div>
