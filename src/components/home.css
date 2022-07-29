@@ -1,3 +1,11 @@
 .loading{
   margin-top: 7rem;
 }
+
+h1, h2{
+  font-family: 'Play', sans-serif;
+}
+
+.green-text{
+  color: #56eb28;
+}

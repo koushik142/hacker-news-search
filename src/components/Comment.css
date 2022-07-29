@@ -1,0 +1,12 @@
+.comment{
+    background-color: #BDBDBD;
+    color: black;
+    padding: 0.4rem;
+    margin-right: 1rem;
+    border-radius: 1rem;
+}
+
+.comment p{
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
