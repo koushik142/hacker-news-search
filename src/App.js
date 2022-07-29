@@ -1,5 +1,5 @@
 import "./App.css";
-import Home from "./components/home";
+import Home from "./components/Home";
 import PostDetail from "./components/PostDetail";
 import { Route, Switch } from "react-router-dom";
 
