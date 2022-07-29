@@ -6,6 +6,7 @@ import { Box } from "@mui/system";
 import Header from "./Header";
 import Comment from "./Comment";
 import "./PostDetail.css";
+import Footer from "./Footer";
 
 function PostDetail() {
   const params = useParams();
@@ -39,8 +40,6 @@ function PostDetail() {
   if (axiosGetRequestFailed) {
     return (
       <>
-        <h1>{post.title}</h1>
-        <h2>{"Points: " + post.points}</h2>
         <h2>Comments</h2>
         <div id="axios-err-msg">
           <h5>
@@ -55,7 +54,12 @@ function PostDetail() {
   return (
     <>
       <h1>{post.title}</h1>
-      <h2>{"Points: " + post.points}</h2>
+      <h2>
+        Points:{" "}
+        <span className="green-text">
+          <i>{post.points ? post.points : ""}</i>
+        </span>
+      </h2>
       <h2>Comments</h2>
 
       {displayLoadingSpinner ? (
@@ -71,6 +75,8 @@ function PostDetail() {
             })}
         </div>
       )}
+
+      <Footer />
     </>
   );
 }
