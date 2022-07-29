@@ -1,4 +1,4 @@
-import "./cardPost.css";
+import "./CardPost.css";
 import { Link } from "react-router-dom";
 
 function CardPost({ title, url, objectID }) {
