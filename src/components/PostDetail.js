@@ -30,7 +30,7 @@ function PostDetail() {
    */
   async function getPost(objectID) {
     const response = await axios.get(
-      "http://hn.algolia.com/api/v1/items/" + objectID
+      "https://hn.algolia.com/api/v1/items/" + objectID
     );
     return response.data;
   }

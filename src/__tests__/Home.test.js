@@ -44,7 +44,7 @@ describe("Home Page", () => {
     jest.clearAllMocks();
 
     mock
-      .onGet("http://hn.algolia.com/api/v1/search?query=")
+      .onGet("https://hn.algolia.com/api/v1/search?query=")
       .reply(200, postsResponse);
 
     render(HomePageDOMTree(history));
@@ -54,7 +54,7 @@ describe("Home Page", () => {
 
   it("should make a GET request to load posts", () => {
     const getPostsCall = mock.history.get.find(
-      (req) => req.url === "http://hn.algolia.com/api/v1/search?query="
+      (req) => req.url === "https://hn.algolia.com/api/v1/search?query="
     );
 
     expect(getPostsCall).toBeTruthy();
@@ -68,7 +68,7 @@ describe("Home Page", () => {
   });
 
   it("should display error message to the user if the GET request fails", async () => {
-    mock.onGet("http://hn.algolia.com/api/v1/search?query=").reply(404, []);
+    mock.onGet("https://hn.algolia.com/api/v1/search?query=").reply(404, []);
 
     // https://github.com/clarkbw/jest-localstorage-mock/issues/125
     jest.clearAllMocks();
@@ -101,7 +101,7 @@ describe("Home Page", () => {
     };
 
     mock
-      .onGet("http://hn.algolia.com/api/v1/search?query=musk")
+      .onGet("https://hn.algolia.com/api/v1/search?query=musk")
       .reply(200, searchResponse);
 
     const search = screen.getAllByPlaceholderText(/Start typing/i)[0];
