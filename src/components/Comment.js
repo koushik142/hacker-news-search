@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import "./Comment.css";
 
 function Comment({ comment }) {
   const commentTextEl = useRef(null);
@@ -13,7 +14,7 @@ function Comment({ comment }) {
 
   return (
     <div style={{ marginLeft: "2rem", marginTop: "0.5rem" }}>
-      <div ref={commentTextEl}></div>
+      <div ref={commentTextEl} className="comment"></div>
 
       {nestedComments}
     </div>
