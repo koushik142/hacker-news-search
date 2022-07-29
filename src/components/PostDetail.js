@@ -3,10 +3,18 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { CircularProgress, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import Header from "./Header";
 import Comment from "./Comment";
 import "./PostDetail.css";
 import Footer from "./Footer";
+
+// Definition of Data Structures used
+/**
+ * @typedef {Object} post - Data on post displayed on the post detail. Definition provided below only for properties being used
+ *
+ * @property {number} points - post's points
+ * @property {string} title - Title of the post
+ * @property {Array} children - comments on the post
+ */
 
 function PostDetail() {
   const params = useParams();
@@ -14,6 +22,12 @@ function PostDetail() {
   const [displayLoadingSpinner, setDisplayLoadingSpinner] = useState(false);
   const [axiosGetRequestFailed, setAxiosGetRequestFailed] = useState(false);
 
+  /**
+   * Make API call to the endpoint provided to fetch the post details object.
+   *
+   * @returns {post}
+   *        post object
+   */
   async function getPost(objectID) {
     const response = await axios.get(
       "http://hn.algolia.com/api/v1/items/" + objectID
@@ -37,6 +51,7 @@ function PostDetail() {
       });
   }, []);
 
+  //If axios GET request fails, display an error message to the user by returning the below JSX
   if (axiosGetRequestFailed) {
     return (
       <>

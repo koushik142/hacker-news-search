@@ -8,6 +8,19 @@ import Header from "./Header";
 import SearchBar from "./SearchBar";
 import Footer from "./Footer";
 
+// Definition of Data Structures used
+/**
+ * @typedef {Object} post - Data on posts displayed on the home screen. Definition provided below only for properties being used
+ *
+ * @property {number} objectID - Unique id of the post
+ * @property {string} title - Title of the post
+ * @property {string} url - url of the post
+ */
+
+/**
+ * @typedef {Array.<post>} posts - Array of post objects
+ */
+
 function Home() {
   const [posts, setPosts] = useState([]);
   const [searchString, setSearchString] = useState("");
@@ -15,6 +28,12 @@ function Home() {
   const [displayLoadingSpinner, setDisplayLoadingSpinner] = useState(false);
   const [axiosGetRequestFailed, setAxiosGetRequestFailed] = useState(false);
 
+  /**
+   * Make API call to the endpoint provided to fetch the posts Array.
+   *
+   * @returns {Array.<post>}
+   *        Array of posts along with their properties
+   */
   async function getPosts(query) {
     const response = await axios.get(
       "http://hn.algolia.com/api/v1/search?query=" + query
@@ -22,6 +41,9 @@ function Home() {
     return response.data;
   }
 
+  /**
+   * "Search bar" on change handler. Updates search string state. Makes Axios GET request to fetch * posts data using debouncing.
+   */
   function handleChangeSearchString(e) {
     const userInput = e.target.value;
     setSearchString(userInput);
@@ -52,19 +74,20 @@ function Home() {
   useEffect(() => {
     setDisplayLoadingSpinner(true);
     getPosts("")
-        .then((res) => {
-          setDisplayLoadingSpinner(false);
-          setAxiosGetRequestFailed(false);
-          console.log(res);
-          setPosts(res.hits);
-        })
-        .catch((err) => {
-          console.log(err.message);
-          setDisplayLoadingSpinner(false);
-          setAxiosGetRequestFailed(true);
-        });
+      .then((res) => {
+        setDisplayLoadingSpinner(false);
+        setAxiosGetRequestFailed(false);
+        console.log(res);
+        setPosts(res.hits);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setDisplayLoadingSpinner(false);
+        setAxiosGetRequestFailed(true);
+      });
   }, []);
 
+  //If axios GET request fails, display an error message to the user by returning the below JSX
   if (axiosGetRequestFailed) {
     return (
       <>
@@ -99,7 +122,12 @@ function Home() {
             </h5>
           ) : (
             posts.map((post) => (
-              <CardPost title={post.title} key={post.objectID} url={post.url} objectID={post.objectID}/>
+              <CardPost
+                title={post.title}
+                key={post.objectID}
+                url={post.url}
+                objectID={post.objectID}
+              />
             ))
           )}
         </div>
