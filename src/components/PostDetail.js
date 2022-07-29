@@ -36,17 +36,41 @@ function PostDetail() {
       });
   }, []);
 
+  if (axiosGetRequestFailed) {
+    return (
+      <>
+        <h1>{post.title}</h1>
+        <h2>{"Points: " + post.points}</h2>
+        <h2>Comments</h2>
+        <div id="axios-err-msg">
+          <h5>
+            Cannot fetch data at the moment. Try refreshing or open the app
+            after some time.
+          </h5>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <h1>{post.title}</h1>
       <h2>{"Points: " + post.points}</h2>
       <h2>Comments</h2>
-      <div id="comments">
-        {post.children &&
-          post.children.map((comment) => {
-            return <Comment key={comment.id} comment={comment} />;
-          })}
-      </div>
+
+      {displayLoadingSpinner ? (
+        <Box className="loading">
+          <CircularProgress />
+          <Typography variant="h5">Loading comments</Typography>
+        </Box>
+      ) : (
+        <div id="comments">
+          {post.children &&
+            post.children.map((comment) => {
+              return <Comment key={comment.id} comment={comment} />;
+            })}
+        </div>
+      )}
     </>
   );
 }
